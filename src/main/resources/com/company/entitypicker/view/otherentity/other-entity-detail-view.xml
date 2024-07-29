@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://otherEntityDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="otherEntityDc"
+                  class="com.company.entitypicker.entity.OtherEntity">
+            <fetchPlan extends="_base">
+                <property fetchPlan="_instance_name" name="userID">
+                    <property name="active"/>
+                </property>
+            </fetchPlan>
+            <loader id="otherEntityDl"/>
+        </instance>
+        <collection id="usersDc" class="com.company.entitypicker.entity.User">
+            <loader id="usersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from User e]]>
+                </query>
+            </loader>
+            <fetchPlan extends="_base"/>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="otherEntityDc">
+            <textField id="nameField" property="name"/>
+
+            <!-- WORK'S LIKE EXPECTED -->
+
+            <!--<entityComboBox id="userField" property="userID" dataContainer="otherEntityDc" itemsContainer="usersDc">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityComboBox>-->
+
+            <entityPicker id="userField" property="userID" dataContainer="otherEntityDc">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>
